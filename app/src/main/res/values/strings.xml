@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Marvel</string>
+    <string name="comics_label">Comics</string>
+    <string name="text_place_holder_label">Information not available</string>
 </resources>

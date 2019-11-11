@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
 import br.com.marvel.R
 import br.com.marvel.models.Character
 import br.com.marvel.viewmodels.CharacterListViewModel
@@ -39,6 +40,7 @@ class CharacterListActivity : AppCompatActivity() {
         val adapter = CharacterAdapter(characterList) { character ->  
             goToCharacterDetail(character)
         }
+        rvCharacters.layoutManager = GridLayoutManager(this, 3)
         rvCharacters.adapter = adapter
     }
 

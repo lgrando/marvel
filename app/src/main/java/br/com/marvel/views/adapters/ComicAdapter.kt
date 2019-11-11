@@ -5,21 +5,20 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import br.com.marvel.R
-import br.com.marvel.databinding.ItemCharacterBinding
-import br.com.marvel.models.Character
+import br.com.marvel.databinding.ItemComicBinding
+import br.com.marvel.models.Comic
 
-class CharacterAdapter(
-    private var list: List<Character>,
-    private val listener: (Character) -> Unit
-) : RecyclerView.Adapter<CharacterAdapter.ViewHolder>() {
+class ComicAdapter(
+    private var list: List<Comic>
+) : RecyclerView.Adapter<ComicAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding: ItemCharacterBinding = DataBindingUtil.inflate(
+        val binding: ItemComicBinding = DataBindingUtil.inflate(
             LayoutInflater.from(parent.context),
-            R.layout.item_character, parent, false
+            R.layout.item_comic, parent, false
         )
 
-        return ViewHolder(binding, listener)
+        return ViewHolder(binding)
     }
 
     override fun getItemCount(): Int = list.size
@@ -29,13 +28,11 @@ class CharacterAdapter(
     }
 
     class ViewHolder(
-        private val binding: ItemCharacterBinding,
-        private val listener: (Character) -> Unit
+        private val binding: ItemComicBinding
     ) :
         RecyclerView.ViewHolder(binding.root) {
-        fun onBind(item: Character) {
-            binding.character = item
-            itemView.setOnClickListener { listener(item) }
+        fun onBind(item: Comic) {
+            binding.comic = item
             binding.executePendingBindings()
         }
     }
