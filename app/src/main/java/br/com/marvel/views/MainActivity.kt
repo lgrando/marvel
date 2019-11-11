@@ -1,7 +1,8 @@
-package br.com.marvel
+package br.com.marvel.views
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import br.com.marvel.R
 
 class MainActivity : AppCompatActivity() {
 
