@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import br.com.marvel.models.Character
+import br.com.marvel.models.MarvelResponse
 import br.com.marvel.repositories.MarvelRepository
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
@@ -13,8 +15,8 @@ class CharacterListViewModel(
     private val coroutineContext: CoroutineContext
 ) : ViewModel() {
 
-    private val _characters = MutableLiveData<Any>()
-    val characters: LiveData<Any> get() = _characters
+    private val _characters = MutableLiveData<MarvelResponse<Character>>()
+    val characters: LiveData<MarvelResponse<Character>> get() = _characters
 
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> get() = _error
