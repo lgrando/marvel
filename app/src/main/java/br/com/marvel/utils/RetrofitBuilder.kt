@@ -14,6 +14,7 @@ fun <T> getApi(serviceClass: Class<T>): T {
     val client = OkHttpClient.Builder()
     client.readTimeout(TIMEOUT, TimeUnit.SECONDS)
     client.connectTimeout(TIMEOUT, TimeUnit.SECONDS)
+    client.addInterceptor(QueryParamInterceptor())
 
     val gson = GsonBuilder()
         .setLenient()

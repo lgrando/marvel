@@ -1,5 +1,6 @@
 package br.com.marvel.views.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -35,7 +36,15 @@ class CharacterListActivity : AppCompatActivity() {
     }
 
     private fun prepareRecycler(characterList: List<Character>) {
-        val adapter = CharacterAdapter(characterList)
+        val adapter = CharacterAdapter(characterList) { character ->  
+            goToCharacterDetail(character)
+        }
         rvCharacters.adapter = adapter
+    }
+
+    private fun goToCharacterDetail(character: Character) {
+        val detailIntent = Intent(this, CharacterDetailActivity::class.java)
+        detailIntent.putExtra(CharacterDetailActivity.EXTRA_CHARACTER, character)
+        startActivity(detailIntent)
     }
 }

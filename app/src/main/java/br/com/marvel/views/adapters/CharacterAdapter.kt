@@ -9,7 +9,8 @@ import br.com.marvel.databinding.ItemCharacterBinding
 import br.com.marvel.models.Character
 
 class CharacterAdapter(
-    private var list: List<Character>
+    private var list: List<Character>,
+    private val listener: (Character) -> Unit
 ) : RecyclerView.Adapter<CharacterAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding: ItemCharacterBinding = DataBindingUtil.inflate(
@@ -17,7 +18,7 @@ class CharacterAdapter(
             R.layout.item_character, parent, false
         )
 
-        return ViewHolder(binding)
+        return ViewHolder(binding, listener)
     }
 
     override fun getItemCount(): Int = list.size
@@ -26,10 +27,11 @@ class CharacterAdapter(
         holder.onBind(list[position])
     }
 
-    class ViewHolder(private val binding: ItemCharacterBinding) :
+    class ViewHolder(private val binding: ItemCharacterBinding, private val listener: (Character) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
         fun onBind(item: Character) {
             binding.character = item
+            itemView.setOnClickListener { listener(item) }
             binding.executePendingBindings()
         }
     }
