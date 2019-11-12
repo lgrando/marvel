@@ -21,11 +21,16 @@ class CharacterDetailViewModel(
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> get() = _error
 
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> get() = _isLoading
+
     fun getCharacterComicsList(characterId: Long) {
         viewModelScope.launch(coroutineContext) {
+            _isLoading.postValue(true)
             try {
                 val response = repository.getCharacterComicsList(characterId)
                 _comics.postValue(response)
+                _isLoading.postValue(false)
             } catch (e: Exception) {
                 _error.postValue(e.message)
             }

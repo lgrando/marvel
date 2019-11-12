@@ -2,4 +2,7 @@
     <string name="app_name">Marvel</string>
     <string name="comics_label">Comics</string>
     <string name="text_place_holder_label">Information not available</string>
+    <string name="request_error_label">Sorry… An error has occurred.</string>
+    <string name="retry_label">Retry</string>
+    <string name="no_comics_available_label">No comics available for this character</string>
 </resources>

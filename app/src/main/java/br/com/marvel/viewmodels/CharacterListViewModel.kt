@@ -21,11 +21,16 @@ class CharacterListViewModel(
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> get() = _error
 
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> get() = _isLoading
+
     fun getCharactersList() {
         viewModelScope.launch(coroutineContext) {
+            _isLoading.postValue(true)
             try {
                 val response = repository.getCharactersList()
                 _characters.postValue(response)
+                _isLoading.postValue(false)
             } catch (e: Exception) {
                 _error.postValue(e.message)
             }
