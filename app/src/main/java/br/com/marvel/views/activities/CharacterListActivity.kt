@@ -3,12 +3,13 @@ package br.com.marvel.views.activities
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import br.com.marvel.R
 import br.com.marvel.models.Character
+import br.com.marvel.models.Thumbnail
 import br.com.marvel.viewmodels.CharacterListViewModel
 import br.com.marvel.views.adapters.CharacterAdapter
 import kotlinx.android.synthetic.main.activity_character_list.*
@@ -18,6 +19,8 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class CharacterListActivity : AppCompatActivity() {
 
     private val viewModel: CharacterListViewModel by viewModel()
+    private val characterList = arrayListOf<Character>()
+    private lateinit var adapter: CharacterAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +28,7 @@ class CharacterListActivity : AppCompatActivity() {
 
         configureObservers()
         configureListeners()
+        configureRecyclerAdapter()
         viewModel.getCharactersList()
     }
 
@@ -39,6 +43,9 @@ class CharacterListActivity : AppCompatActivity() {
             isLoading.observe(this@CharacterListActivity, Observer { isLoading ->
                 onLoadingStatusChange(isLoading)
             })
+            isUpdating.observe(this@CharacterListActivity, Observer { isUpdating ->
+                lavUpdating.visibility = if (isUpdating) View.VISIBLE else View.GONE
+            })
         }
     }
 
@@ -48,12 +55,27 @@ class CharacterListActivity : AppCompatActivity() {
         }
     }
 
-    private fun prepareRecycler(characterList: List<Character>) {
-        val adapter = CharacterAdapter(characterList) { character ->
+    private fun configureRecyclerAdapter() {
+        adapter = CharacterAdapter(characterList) { character ->
             goToCharacterDetail(character)
         }
         rvCharacters.layoutManager = GridLayoutManager(this, 3)
         rvCharacters.adapter = adapter
+    }
+
+    private fun prepareRecycler(list: List<Character>) {
+        characterList.addAll(list)
+        adapter.notifyDataSetChanged()
+        rvCharacters.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val layoutManager = rvCharacters.layoutManager as GridLayoutManager
+                if (layoutManager.findLastCompletelyVisibleItemPosition() == list.size - 1) {
+                    viewModel.getCharactersList(layoutManager.itemCount)
+                }
+            }
+        })
     }
 
     private fun goToCharacterDetail(character: Character) {

@@ -7,8 +7,8 @@ import br.com.marvel.services.MarvelService
 
 class MarvelRemoteDataSource(private val service: MarvelService) {
 
-    suspend fun getCharactersList(): MarvelResponse<Character> {
-        return service.getCharactersList()
+    suspend fun getCharactersList(offset: Int): MarvelResponse<Character> {
+        return service.getCharactersList(offset)
     }
 
     suspend fun getCharacterComicsList(characterId: Long): MarvelResponse<Comic> {

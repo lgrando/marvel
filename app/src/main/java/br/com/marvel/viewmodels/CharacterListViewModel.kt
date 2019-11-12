@@ -24,16 +24,27 @@ class CharacterListViewModel(
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> get() = _isLoading
 
-    fun getCharactersList() {
+    private val _isUpdating = MutableLiveData<Boolean>()
+    val isUpdating: LiveData<Boolean> get() = _isUpdating
+
+    fun getCharactersList(offset: Int = 0) {
         viewModelScope.launch(coroutineContext) {
-            _isLoading.postValue(true)
+            configureLoader(true, offset)
             try {
-                val response = repository.getCharactersList()
+                val response = repository.getCharactersList(offset)
                 _characters.postValue(response)
-                _isLoading.postValue(false)
+                configureLoader(false, offset)
             } catch (e: Exception) {
                 _error.postValue(e.message)
             }
+        }
+    }
+
+    private fun configureLoader(showLoader: Boolean, offset: Int) {
+        if (offset > 0) {
+            _isUpdating.postValue(showLoader)
+        } else {
+            _isLoading.postValue(showLoader)
         }
     }
 }

@@ -14,8 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".views.activities.CharacterDetailActivity" />
-        <activity android:name=".views.activities.CharacterListActivity">
+        <activity
+            android:name=".views.activities.CharacterDetailActivity"
+            android:screenOrientation="fullSensor" />
+        <activity
+            android:name=".views.activities.CharacterListActivity"
+            android:screenOrientation="fullSensor">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
