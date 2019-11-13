@@ -6,9 +6,9 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import br.com.marvel.R
 import br.com.marvel.models.Character
+import br.com.marvel.utils.EndlessRecyclerOnScrollListener
 import br.com.marvel.viewmodels.CharacterListViewModel
 import br.com.marvel.views.adapters.CharacterAdapter
 import kotlinx.android.synthetic.main.activity_character_list.*
@@ -65,23 +65,9 @@ class CharacterListActivity : AppCompatActivity() {
     private fun prepareRecycler(list: List<Character>) {
         characterList.addAll(list)
         adapter.notifyDataSetChanged()
-        var isUpdatingAdapter = true
-        rvCharacters.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                val layoutManager = rvCharacters.layoutManager as GridLayoutManager
-                if (dy > 0) {
-                    val visibleItemCount = layoutManager.childCount
-                    val totalItemCount = layoutManager.itemCount
-                    val pastVisiblesItems = layoutManager.findFirstVisibleItemPosition()
-
-                    if (isUpdatingAdapter) {
-                        if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
-                            isUpdatingAdapter = false
-                            viewModel.getCharactersList(characterList.size)
-                        }
-                    }
-                }
+        rvCharacters.addOnScrollListener(object : EndlessRecyclerOnScrollListener() {
+            override fun onLoadMore() {
+                viewModel.getCharactersList(characterList.size)
             }
         })
     }
