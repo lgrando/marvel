@@ -22,7 +22,6 @@
         <androidx.cardview.widget.CardView
             android:layout_width="0dp"
             android:layout_height="190dp"
-            app:cardBackgroundColor="@color/lightGrey"
             app:cardCornerRadius="7dp"
             app:layout_constraintDimensionRatio="2:3"
             app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +30,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@android:color/black"
+                android:background="@color/lightGrey"
                 android:orientation="vertical">
 
                 <ImageView
@@ -45,6 +44,7 @@
                 <me.grantland.widget.AutofitTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@android:color/black"
                     android:gravity="center"
                     android:maxLines="1"
                     android:text="@{character.name}"
