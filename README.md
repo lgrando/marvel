@@ -12,3 +12,7 @@ Below, stats from Android Studio test coverage:
 | ------- | --------- | ---------- | ------
 | br.com.marvel.repositories | 100% | 100% | 100%
 | br.com.marvel.viewmodels | 100% | 80% | 91%
+
+### Tools
+
+Developed with IDE `Android Studio 3.6 Canary 10`
