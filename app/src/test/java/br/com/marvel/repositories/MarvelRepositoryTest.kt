@@ -48,10 +48,6 @@ class MarvelRepositoryTest {
         val expectedResult = MarvelResponse(
             code = 200,
             data = MarvelResponse.Data(
-                offset = 0,
-                limit = 20,
-                total = 1493,
-                count = 20,
                 results = listOf(character)
             )
         )
@@ -87,10 +83,6 @@ class MarvelRepositoryTest {
         val expectedResult = MarvelResponse(
             code = 200,
             data = MarvelResponse.Data(
-                offset = 0,
-                limit = 20,
-                total = 1493,
-                count = 20,
                 results = listOf(comic)
             )
         )
