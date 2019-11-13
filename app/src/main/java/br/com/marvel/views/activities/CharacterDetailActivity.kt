@@ -12,6 +12,7 @@ import br.com.marvel.models.Comic
 import br.com.marvel.viewmodels.CharacterDetailViewModel
 import br.com.marvel.views.adapters.ComicAdapter
 import kotlinx.android.synthetic.main.activity_character_detail.*
+import kotlinx.android.synthetic.main.error_component.view.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class CharacterDetailActivity : AppCompatActivity() {
@@ -26,13 +27,14 @@ class CharacterDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView<ActivityCharacterDetailBinding>(
+        binding = DataBindingUtil.setContentView(
             this,
             R.layout.activity_character_detail
         )
 
         configureObservers()
         configureExtras()
+        configureListeners()
     }
 
     private fun configureObservers() {
@@ -41,7 +43,7 @@ class CharacterDetailActivity : AppCompatActivity() {
                 prepareRecycler(result.data.results)
             })
             error.observe(this@CharacterDetailActivity, Observer {
-                onLoadingStatusChange(false)
+                configureErrorLayout()
             })
             isLoading.observe(this@CharacterDetailActivity, Observer { isLoading ->
                 onLoadingStatusChange(isLoading)
@@ -53,6 +55,15 @@ class CharacterDetailActivity : AppCompatActivity() {
         if (intent.hasExtra(EXTRA_CHARACTER)) {
             character = intent.extras?.get(EXTRA_CHARACTER) as Character
             binding.character = character
+            viewModel.getCharacterComicsList(character.id)
+        }
+    }
+
+    private fun configureListeners() {
+        ivBackArrow.setOnClickListener {
+            onBackPressed()
+        }
+        errorComponent.btnRetry.setOnClickListener {
             viewModel.getCharacterComicsList(character.id)
         }
     }
@@ -74,5 +85,12 @@ class CharacterDetailActivity : AppCompatActivity() {
     private fun onLoadingStatusChange(isLoading: Boolean) {
         pbLoader.visibility = if (isLoading) View.VISIBLE else View.GONE
         rvComics.visibility = if (isLoading) View.INVISIBLE else View.VISIBLE
+        errorComponent.visibility = View.GONE
+    }
+
+    private fun configureErrorLayout() {
+        rvComics.visibility = View.INVISIBLE
+        pbLoader.visibility = View.GONE
+        errorComponent.visibility = View.VISIBLE
     }
 }

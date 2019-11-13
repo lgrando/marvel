@@ -15,7 +15,7 @@
 
     <style name="WarningTextView" parent="Widget.AppCompat.TextView">
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:textSize">18sp</item>
     </style>
 

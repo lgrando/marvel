@@ -22,9 +22,19 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:alpha=".3"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             app:imageUrl="@{character.thumbnail.thumbnailUrl}"
             tools:src="@tools:sample/avatars" />
+
+        <ImageView
+            android:id="@+id/ivBackArrow"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_margin="20dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_arrow_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="0dp"
@@ -126,6 +136,17 @@
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintBottom_toBottomOf="parent"
                     tools:listitem="@layout/item_comic" />
+
+                <include
+                    android:id="@+id/errorComponent"
+                    layout="@layout/error_component"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvComicsLabel" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
