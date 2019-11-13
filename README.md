@@ -1,4 +1,4 @@
-''# MARVEL Application Test
+# MARVEL Application Test
 
 This is an application for test the [Marvel API](https://developer.marvel.com/), getting the character list and showing the details.
 
