@@ -12,7 +12,6 @@ import br.com.marvel.models.Comic
 import br.com.marvel.viewmodels.CharacterDetailViewModel
 import br.com.marvel.views.adapters.ComicAdapter
 import kotlinx.android.synthetic.main.activity_character_detail.*
-import kotlinx.android.synthetic.main.error_component.view.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class CharacterDetailActivity : AppCompatActivity() {

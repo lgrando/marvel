@@ -2,16 +2,13 @@ package br.com.marvel.views.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.ScrollView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.marvel.R
 import br.com.marvel.models.Character
-import br.com.marvel.models.Thumbnail
 import br.com.marvel.viewmodels.CharacterListViewModel
 import br.com.marvel.views.adapters.CharacterAdapter
 import kotlinx.android.synthetic.main.activity_character_list.*
