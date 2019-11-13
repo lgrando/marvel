@@ -22,6 +22,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="0dp"
             android:layout_height="190dp"
+            app:cardBackgroundColor="@color/lightGrey"
             app:cardCornerRadius="7dp"
             app:layout_constraintDimensionRatio="2:3"
             app:layout_constraintStart_toStartOf="parent"
@@ -37,7 +38,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:scaleType="centerCrop"
+                    android:scaleType="fitXY"
                     app:imageUrl="@{character.thumbnail.thumbnailUrl}"
                     tools:src="@tools:sample/avatars" />
 

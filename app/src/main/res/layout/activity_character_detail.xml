@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:alpha=".3"
-            android:scaleType="centerCrop"
+            android:scaleType="fitXY"
             app:imageUrl="@{character.thumbnail.thumbnailUrl}"
             tools:src="@tools:sample/avatars" />
 
@@ -51,7 +51,7 @@
                     android:layout_width="120dp"
                     android:layout_height="150dp"
                     android:layout_margin="15dp"
-                    android:scaleType="centerCrop"
+                    android:scaleType="fitXY"
                     app:imageUrl="@{character.thumbnail.thumbnailUrl}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"

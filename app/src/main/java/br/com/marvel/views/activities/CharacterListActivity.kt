@@ -2,7 +2,9 @@ package br.com.marvel.views.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.ScrollView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
@@ -66,13 +68,22 @@ class CharacterListActivity : AppCompatActivity() {
     private fun prepareRecycler(list: List<Character>) {
         characterList.addAll(list)
         adapter.notifyDataSetChanged()
+        var isUpdatingAdapter = true
         rvCharacters.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-
                 val layoutManager = rvCharacters.layoutManager as GridLayoutManager
-                if (layoutManager.findLastCompletelyVisibleItemPosition() == list.size - 1) {
-                    viewModel.getCharactersList(layoutManager.itemCount)
+                if (dy > 0) {
+                    val visibleItemCount = layoutManager.childCount
+                    val totalItemCount = layoutManager.itemCount
+                    val pastVisiblesItems = layoutManager.findFirstVisibleItemPosition()
+
+                    if (isUpdatingAdapter) {
+                        if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
+                            isUpdatingAdapter = false
+                            viewModel.getCharactersList(characterList.size)
+                        }
+                    }
                 }
             }
         })
@@ -91,8 +102,10 @@ class CharacterListActivity : AppCompatActivity() {
     }
 
     private fun configureErrorLayout() {
+        characterList.clear()
         rvCharacters.visibility = View.GONE
         lavLoader.visibility = View.GONE
+        lavUpdating.visibility = View.GONE
         errorComponent.visibility = View.VISIBLE
     }
 }
