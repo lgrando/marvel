@@ -50,10 +50,6 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
 
-    /*RXJAVA*/
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.3'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
-
     /*LIFECYCLE*/
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-rc02'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
